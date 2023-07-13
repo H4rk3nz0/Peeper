@@ -1,6 +1,6 @@
 ## Description
 
-A P/Invoke C# tool for exploiting CVE-2023-36266. It is designed to iterat over known memory structures in Keeper Security's Windows Desktop Password Manager and pulls password JSON structures out in clear text. Makes use of regex due to unreliable V8 memory mapping structure - not consistent with known MetaMap structures `ff 03 (40 | 20) 00` byte match does not yield expected results.
+A P/Invoke C# tool for exploiting CVE-2023-36266. It is designed to iterate over known memory structures in Keeper Security's Windows Desktop Password Manager and pulls password JSON structures out in clear text. Makes use of regex due to unreliable V8 memory mapping structure - not consistent with known MetaMap structures `ff 03 (40 | 20) 00` byte match does not yield expected results.
 
 <br>
 <img src="./example.png"></img>
