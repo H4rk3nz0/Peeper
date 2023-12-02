@@ -1,0 +1,8 @@
+C:\Users\chris\OneDrive\coding\Peeper\Peeper\bin\x86\Release\Peeper.exe.config
+C:\Users\chris\OneDrive\coding\Peeper\Peeper\bin\x86\Release\Peeper.exe
+C:\Users\chris\OneDrive\coding\Peeper\Peeper\bin\x86\Release\Peeper.pdb
+C:\Users\chris\OneDrive\coding\Peeper\Peeper\obj\x86\Release\Peeper.csproj.AssemblyReference.cache
+C:\Users\chris\OneDrive\coding\Peeper\Peeper\obj\x86\Release\Peeper.csproj.SuggestedBindingRedirects.cache
+C:\Users\chris\OneDrive\coding\Peeper\Peeper\obj\x86\Release\Peeper.csproj.CoreCompileInputs.cache
+C:\Users\chris\OneDrive\coding\Peeper\Peeper\obj\x86\Release\Peeper.exe
+C:\Users\chris\OneDrive\coding\Peeper\Peeper\obj\x86\Release\Peeper.pdb
